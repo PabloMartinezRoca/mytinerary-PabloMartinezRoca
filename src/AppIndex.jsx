@@ -30,7 +30,7 @@ function App() {
   
   return (
     <MainLayout bgSection={bgSection} >
-      <MainContainer destinations={destinations} />
+      <MainContainer destinations={destinations} page='index' />
     </MainLayout>
   )
 }
