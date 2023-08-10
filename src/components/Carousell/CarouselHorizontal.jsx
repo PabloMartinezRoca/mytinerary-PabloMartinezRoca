@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useEffect } from "react";
 import CarouselArrow from "./CarouselArrow";
 import CarouselNavigation from "./CarouselNavigation";
 import CarouselViewport from "./CarouselViewport";
@@ -20,6 +20,17 @@ const CarouselHorizontal = ({ destinations }) => {
   const viewSlide = (index) => {
     setIndex(index)
   }
+
+  useEffect(() => {
+    let sliderIntervalID = setInterval(() => {
+      nextSlideClick()
+    }, 4000)
+
+    return () => {
+      clearInterval(sliderIntervalID)
+    }
+    
+  }, [index])
 
   return (
     <div className="CarouselHorizonal w-full flex justify-center ">
