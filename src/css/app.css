@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Indie+Flower&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.link-underline {
+    border-bottom-width: 0;
+    background-image: linear-gradient(transparent, transparent), linear-gradient(#b43abe, #b43abe);
+    background-size: 0 3px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size .3s ease-in-out;
+    padding-bottom: 4px;
+}
+
+.link-underline:hover {
+    background-size: 100% 3px;
+    background-position: 0 100%
+}
+
+@layer base {
+    h2.welcome-section,
+    h2.carousel-section {
+        font-family: 'Indie Flower', system-ui, sans-serif;
+    }
+
+    h2.welcome-section {
+        color: aliceblue;
+    }
+
+    h2.carousel-section {
+        color: #3c88ae;
+    }
+
+    h3.welcome-section {
+        color: aliceblue;
+        font-family: 'Cinzel', system-ui, sans-serif;
+    }
+}
+
+.line-break::before{
+    content: "\a";
+    white-space: pre;
+}
