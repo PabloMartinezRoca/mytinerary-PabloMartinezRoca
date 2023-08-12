@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import { Link as Anchor } from "react-router-dom";
 
 const CitySearchSection = () => {
   return (
@@ -21,9 +22,11 @@ const CitySearchSection = () => {
             an easy-to-use interface and a host of itinerary options, planning
             your next trip has never been easier.
           </p>
-          <button className="text-white bg-[#669966] p-2 mt-20 rounded-lg flex self-center justify-center flex-col">
+          <Anchor to="/index" className="flex self-center justify-center flex-col">
+          <button className="text-white bg-[#669966] hover:bg-[#8fbc8f] p-2 mt-20 rounded-lg flex self-center justify-center flex-col">
             <span className="flex">Stay tuned!</span>
           </button>
+          </Anchor>
         </div>
       </div>
     </div>

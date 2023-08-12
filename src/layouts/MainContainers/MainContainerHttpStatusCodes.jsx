@@ -5,6 +5,7 @@ import CitySearchSection from "../Sections/CitySearchSection/CitySearchSection";
 import WelcomeSection from "../Sections/WelcomeSection/WelcomeSection";
 
 const MainContainer = ({ page, destinations = null }) => {
+  
   switch (page) {
     case "index":
       return (

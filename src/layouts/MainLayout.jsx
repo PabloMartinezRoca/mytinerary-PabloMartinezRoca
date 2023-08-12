@@ -2,7 +2,8 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import BgFullHeight from "../components/Background/BgFullHeight";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 let mapIcon = (
   <svg
@@ -49,14 +50,14 @@ let twitterIcon = (
 
 const navBarLinks = [
   {
-    docUrl: "index.html",
+    docUrl: "index",
     linkText: "Home",
     linkType: "underline",
     icon: "",
     showIn: ["header", "footer"],
   },
   {
-    docUrl: "cities.html",
+    docUrl: "cities",
     linkText: "Cities",
     linkType: "underline",
     icon: "",
@@ -85,12 +86,24 @@ const navBarLinks = [
   },
 ];
 
-const MainLayout = ({ children, bgSection }) => {
+const MainLayout = ({ destinations }) => {
+  
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    location.pathname == '/' && navigate('/index')
+  }, [])
+
+  const bgSection =
+    destinations[Math.floor(Math.random() * destinations.length)][
+      Math.floor(Math.random() * 4)
+    ].imgUrl;
+
   return (
     <div className="mainLayout flex flex-col">
-      <BgFullHeight cityDestination={bgSection} />
       <Header navBarLinks={navBarLinks} />
-      {children}
+      <Outlet context={[bgSection, destinations]} />
       <Footer navBarLinks={navBarLinks} />
     </div>
   );
