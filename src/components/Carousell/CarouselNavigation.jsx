@@ -2,11 +2,13 @@
 import React from 'react'
 import CarouselNavigationComponent from './CarouselNavigationComponent'
 
-const CarouselNavigation = ({ destinations, index, fn }) => {
+const CarouselNavigation = ({ viewPortPagesDestinations, index, fn }) => {
+  
+  console.log(viewPortPagesDestinations)
   return (
     <div className='flex'>
       {
-        destinations.map((destination, indexMap) => {
+        viewPortPagesDestinations.map((destination, indexMap) => {
           let activo = indexMap === index ? true : false
 
           return (

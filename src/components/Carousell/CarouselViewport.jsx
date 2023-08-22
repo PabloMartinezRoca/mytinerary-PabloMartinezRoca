@@ -2,12 +2,12 @@
 import React from 'react'
 import CarouselSlider from './CarouselSlider'
 
-const CarouselViewport = ({ viewportDestinations }) => {
+const CarouselViewport = ({ viewPortPagesDestinations }) => {
   
   return (
     <div className='flex w-[70%] flex-wrap justify-center'>
       {
-        viewportDestinations.map((destination, indexMap) => {
+        viewPortPagesDestinations.map((destination, indexMap) => {
           return (
             <CarouselSlider key={indexMap} destination={destination} />
           )
