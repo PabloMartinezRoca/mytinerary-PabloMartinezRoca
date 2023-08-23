@@ -7,9 +7,9 @@ const CarouselViewport = ({ viewPortPagesDestinations }) => {
   return (
     <div className='flex w-[70%] flex-wrap justify-center'>
       {
-        viewPortPagesDestinations.map((destination, indexMap) => {
+        viewPortPagesDestinations.map((cityInfo, indexMap) => {
           return (
-            <CarouselSlider key={indexMap} destination={destination} />
+            <CarouselSlider key={indexMap} cityInfo={cityInfo} />
           )
         })
       }

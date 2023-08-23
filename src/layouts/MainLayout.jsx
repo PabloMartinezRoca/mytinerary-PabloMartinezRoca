@@ -89,8 +89,7 @@ const navBarLinks = [
 const MainLayout = ({ destinations }) => {
   
   console.log("Starting Main Layout")
-  console.log(destinations[Math.floor(Math.random() * destinations.length)].imgUrl
-  )
+  
   const navigate = useNavigate()
   const location = useLocation()
 

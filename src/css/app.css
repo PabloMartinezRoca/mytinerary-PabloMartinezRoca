@@ -45,3 +45,10 @@
     content: "\a";
     white-space: pre;
 }
+
+.SearchSection input,
+.SearchSection select {
+    color: black;
+    padding: 0.2em;
+    margin-left: 1em;
+}

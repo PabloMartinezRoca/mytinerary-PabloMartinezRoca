@@ -8,7 +8,7 @@ import { useState } from "react";
 const CarouselHorizontal = ({ destinations }) => {
   
   const viewPortPagesDestinations = Array.from(
-    { length: Math.ceil(destinations.length / 4) },
+    { length: Math.ceil(destinations.length / 4) <= 3 ? Math.ceil(destinations.length / 4) : 3 },
     (_, index) => destinations.slice(index * 4, index * 4 + 4)
   );
 

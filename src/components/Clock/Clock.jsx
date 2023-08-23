@@ -69,7 +69,7 @@ const Clock = ({ weatherCondition = "sunny" }) => {
   };
 
   return (
-    <div className="flex align-middle h-100 self-center mx-4">
+    <div className="flex align-middle h-100 self-center mx-4 w-[120px]">
       <Weather weatherCondition={weatherCondition} isDayTime={isDayTime} />
       <span
         onClick={() => {

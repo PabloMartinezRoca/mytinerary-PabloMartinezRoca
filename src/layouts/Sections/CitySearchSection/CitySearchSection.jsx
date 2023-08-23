@@ -1,33 +1,82 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useState } from "react";
 import { Link as Anchor } from "react-router-dom";
+import CityCard from "../../../components/CityCard/CityCard";
 
-const CitySearchSection = () => {
+const CitySearchSection = ({ cities }) => {
+  const noCityFound = {
+    match: false,
+    city: "Lost?",
+    country: "Nowhere!",
+    imgPath: "./images/bgHttpStatusCodes/",
+    imgUrl: "Desert-Island-Middle-Of-Nowhere-1920.webp",
+  };
+  // Select filter logic
+  const [options, setOptions] = useState(cities);
+  const [selectedOption, setSelectedOption] = useState("-1");
+
+  const handleSelectChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
+  // Input filter logic
+  const [inputValue, setInputValue] = useState("");
+  const [filteredData, setFilteredData] = useState(cities);
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    // Filter data based on input
+    const filtered = cities.filter((item) =>
+      item.city.trim().toLowerCase().startsWith(value.toLowerCase().trim())
+    );
+    setFilteredData(filtered);
+  };
+
   return (
-    <div className="WelcomeSection flex w-full justify-center py-24">
-      <div className="flex justify-center self-center bg-black bg-opacity-40 h-[60vh] w-[75vw] max-w-[800px] rounded-3xl p-10 shadow-lg shadow-white/50">
+    <div className="SearchSection flex w-full justify-center py-4 flex-col">
+      <div className="flex justify-center self-center bg-black bg-opacity-40 w-[96vw] rounded-3xl p-4 shadow-lg shadow-white/50">
         <div className="flex flex-col w-80 grow justify-center">
-          <h2 className="welcome-section text-5xl drop-shadow mb-4 text-center">
-            Find your perfect trip
-          </h2>
-          <h3 className="welcome-section text-lg drop-shadow text-center">
-            designed by insiders
-            <span className="line-break">who know and love their cities!</span>
-          </h3>
-          <h2 className="welcome-section text-5xl drop-shadow mt-20 text-center">
+          <h2 className="welcome-section text-5xl drop-shadow my-5 text-center">
             Search your next dream!
           </h2>
-          <p className="text-white mt-5">
-            Soon you will find here a great tool to help you find the perfect path for your next trip. With
-            an easy-to-use interface and a host of itinerary options, planning
-            your next trip has never been easier.
+          <p className="text-white mt-5 text-center ">
+            Select a city of your interest
+            <select value={selectedOption} onChange={handleSelectChange}>
+              <option key="-1" value="-1">
+                Select a city
+              </option>
+              {options.map((option) => (
+                <option key={option._id} value={option._id}>
+                  {option.city}
+                </option>
+              ))}
+            </select>
           </p>
-          <Anchor to="/index" className="flex self-center justify-center flex-col">
-          <button className="text-white bg-[#669966] hover:bg-[#8fbc8f] p-2 mt-20 rounded-lg flex self-center justify-center flex-col">
-            <span className="flex">Stay tuned!</span>
-          </button>
-          </Anchor>
+          <p className="text-white mt-5 text-center ">
+            Or filter by entering the city name you are looking for
+            <input
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Filter by city"
+            />
+          </p>
         </div>
+      </div>
+      <div className="flex flex-wrap gap-4 justify-center self-center w-[96vw] p-10 mt-5 text-white bg-black bg-opacity-40  rounded-3xl shadow-lg shadow-white/50">
+        {filteredData.length === 0 ? (
+          <div key={-1} className="card p-2 ">
+            <CityCard cityInfo={noCityFound} />
+          </div>
+        ) : (
+          filteredData.map((cityInfo) => (
+            <div key={cityInfo._id} className="card p-2 ">
+              <CityCard cityInfo={cityInfo} />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
