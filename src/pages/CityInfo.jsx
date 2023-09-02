@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import BgFullHeight from "../components/Background/BgFullHeight";
 import MainContainer from "../layouts/MainContainers/MainContainerCityInfo";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function CityInfo() {
@@ -27,21 +27,5 @@ export default function CityInfo() {
     )
     } { /* Espera la carga de datos */ } 
   </>
-  );
-
-
-
-
-
-
-
-
-  const [bgSection, destinations] = useOutletContext();
-
-  return (
-    <>
-      <BgFullHeight cityDestination={bgSection} />
-      <MainContainer destinations={destinations} />
-    </>
   );
 }
