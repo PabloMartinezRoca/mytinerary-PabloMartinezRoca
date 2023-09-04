@@ -28,7 +28,7 @@ const CityCard = ({ cityInfo }) => {
             destination :: <strong>{city}</strong>
           </div>
           <div className="absolute bottom-[1em] left-0 p-1 pe-3 bg-white opacity-70 w-full h-15 text-emerald-800 flex justify-end">
-            Click to travel to {country}
+            { !match ? "Sorry! We couldnt find a city matching the criteria" : "Click to travel to " + country }
           </div>
         </div>
       </Anchor>

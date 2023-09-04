@@ -1,13 +1,13 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
-import { Link as Anchor } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import CityCard from "../../../components/CityCard/CityCard";
+import { getAllCities } from "../../../services/citiesQueries";
+import { getCitiesByCityName } from "../../../services/citiesQueries";
 
 const CitySearchSection = ({ cities }) => {
   const noCityFound = {
     match: false,
     city: "Lost?",
-    country: "Nowhere!",
     imgPath: "./images/bgHttpStatusCodes/",
     imgUrl: "Desert-Island-Middle-Of-Nowhere-1920.webp",
   };
@@ -23,16 +23,40 @@ const CitySearchSection = ({ cities }) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredData, setFilteredData] = useState(cities);
 
-  const handleInputChange = (e) => {
+  // Vinculación de useRef, con un valor inicial, que guardará la referencia a un dato.
+  // El acceso a la referencia es mediante la propiedad current
+  // Además, no provoca un re render
+  const inputSearch = useRef(null);
+
+  const handleClickFilter = () => { // era handleClickFilter = (e)
+    /*
+    // este código es si se vincula un eventListener al input: onInput={handleInputChange}
     const value = e.target.value;
     setInputValue(value);
+    */
+    setInputValue(inputSearch.current.value)
 
+    /* Esto filtra utilizando los datos pasados a través de cities
     // Filter data based on input
     const filtered = cities.filter((item) =>
-      item.city.trim().toLowerCase().startsWith(value.toLowerCase().trim())
+      item.city.trim().toLowerCase().startsWith(inputSearch.current.value.toString().toLowerCase().trim())
     );
     setFilteredData(filtered);
-  };
+    */
+  }
+
+  useEffect(() => {
+    if(inputValue) {
+      let queryParams = "?city=" + inputValue
+      getCitiesByCityName(queryParams).then(setFilteredData)
+
+      // en una línea
+      // getCitiesByName(`?city=${inputValue}`).then(setFilteredData)
+
+    } else {
+      getAllCities().then(setFilteredData)
+    }
+  }, [inputValue])
 
   return (
     <div className="SearchSection flex w-full justify-center py-4 flex-col">
@@ -54,14 +78,25 @@ const CitySearchSection = ({ cities }) => {
               ))}
             </select>
           </p>
-          <p className="text-white mt-5 text-center ">
-            Or filter by entering the city name you are looking for
+          <p className="text-white mt-5 text-center grid grid-cols-10 gap-2">
+            <span>&nbsp;</span>
+            <span className="col-span-4 text-center self-center">
+              Or filter by entering the start of the city name you are looking for
+            </span>
             <input
+              className="col-span-2 rounded"
+              ref={inputSearch}
               type="text"
-              value={inputValue}
-              onChange={handleInputChange}
-              placeholder="Filter by city"
+              defaultValue={inputValue}
+              placeholder="Type the city name"
             />
+            <button
+              onClick={handleClickFilter}
+              className="bg-slate-300 hover:bg-slate-200 font-bold py-2 px-4 rounded"
+            >
+              🔍
+            </button>
+            <span>&nbsp;</span>
           </p>
         </div>
       </div>
