@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import addItinerary from '../actions/itineraryActions' // Importa las acciones que disparan los reductores
+import addItinerary from '../actions/itinerariesActions' // Importa las acciones que disparan los reductores
 
 // objeto con los estados que serán modificados por las acciones
 // por ejemplo: const initialState = { text: '', checks: [], select: '' }
@@ -9,7 +9,7 @@ const initialState = {
     total: 0
 }
 
-const itineraryReducer = createReducer( initialState, (builder) => {
+const itinerariesReducer = createReducer( initialState, (builder) => {
     builder.addCase( 
         addItinerary, // acción recibida
         ( store, action ) => { // callback
@@ -35,4 +35,4 @@ const itineraryReducer = createReducer( initialState, (builder) => {
 
 })
 
-export default itineraryReducer
+export default itinerariesReducer

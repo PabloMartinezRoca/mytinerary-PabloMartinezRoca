@@ -52,7 +52,7 @@ const App = () => {
           path: "/serverMaintenance",
           element: (
             <HttpStatus503
-              bgSectionPath="./images/bgHttpStatusCodes/"
+              bgSectionPath="/images/bgHttpStatusCodes/"
               bgSection="Departures-Board-DB-offline-1920.webp"
             />
           ),
@@ -61,7 +61,7 @@ const App = () => {
           path: "*",
           element: (
             <HttpStatus404
-              bgSectionPath="./images/bgHttpStatusCodes/"
+              bgSectionPath="/images/bgHttpStatusCodes/"
               bgSection="Desert-Island-Middle-Of-Nowhere-1920.webp"
             />
           ),

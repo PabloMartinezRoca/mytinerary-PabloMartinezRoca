@@ -4,7 +4,7 @@ import { Link as Anchor } from "react-router-dom";
 
 const CityCard = ({ cityInfo }) => {
   let { _id: id, city, country, imgPath, imgUrl, match = true } = cityInfo; // desestructura el objeto
-  const pathToImg = imgPath || "./images/bgCities/";
+  const pathToImg = imgPath || "/images/bgCities/";
   const dimensions = match ? "w-[300px] h-[170px]" : "w-[500px] h-[280px]";
 
   

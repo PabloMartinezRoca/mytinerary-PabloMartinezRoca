@@ -8,7 +8,7 @@ const CitySearchSection = ({ cities }) => {
   const noCityFound = {
     match: false,
     city: "Lost?",
-    imgPath: "./images/bgHttpStatusCodes/",
+    imgPath: "/images/bgHttpStatusCodes/",
     imgUrl: "Desert-Island-Middle-Of-Nowhere-1920.webp",
   };
   // Select filter logic

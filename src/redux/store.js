@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import itineraryReducer from './reducers/itineraryReducer'
+import itinerariesReducer from './reducers/itinerariesReducer'
 
 const store = configureStore({
     reducer: {
-        itineraryReducer: itineraryReducer
+        
+        itinerariesReducer: itinerariesReducer
     }
 })
 
