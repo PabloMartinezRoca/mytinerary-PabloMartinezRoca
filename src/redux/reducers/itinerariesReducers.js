@@ -9,7 +9,7 @@ const initialState = {
     total: 0
 }
 
-const itinerariesReducer = createReducer( initialState, (builder) => {
+const itinerariesReducers = createReducer( initialState, (builder) => {
     builder.addCase( 
         addItinerary, // acción recibida
         ( store, action ) => { // callback
@@ -30,9 +30,12 @@ const itinerariesReducer = createReducer( initialState, (builder) => {
         return newStore
         */
     })
+    .addDefaultCase((state) => {
+        return state
+    })
     // .addMatcher() // opcional
     // .addDefaultCase() //opcional
 
 })
 
-export default itinerariesReducer
+export default itinerariesReducers

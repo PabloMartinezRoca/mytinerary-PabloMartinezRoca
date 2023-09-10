@@ -1,32 +1,61 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import Index from "./pages/Index"
-import Cities from "./pages/Cities"
-import CityInfo from "./pages/CityInfo"
-import MainLayout from "./layouts/MainLayout"
-import HttpStatus404 from "./pages/HttpStatus404"
-import HttpStatus503 from "./pages/HttpStatus503"
-import { useEffect, useState } from "react"
-import axios from "axios";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Index from "./pages/Index";
+import Cities from "./pages/Cities";
+import CityInfo from "./pages/CityInfo";
+import MainLayout from "./layouts/MainLayout";
+import HttpStatus404 from "./pages/HttpStatus404";
+import HttpStatus503 from "./pages/HttpStatus503";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCities } from "./redux/actions/citiesActions";
 // import destinations from "./data/destinations.json" // Load static data content in JSON format
 
 const App = () => {
-  const [destinations, setDestinations] = useState(null);
+  // Línea comentada porque se reemplaza por useSelector() de Redux
+  //const [destinations, setDestinations] = useState(null);
+
+  const dispatch = useDispatch();
+
+  // constantes del store de Redux
+  const { loadingMainInterfase, cities } = useSelector(
+    (store) => store.citiesReducers
+  );
+  console.log(cities);
+  // store está exportado en store.js
+  // citiesReducer está referenciado en store.js
+  // cities es una propiedad citiesReducer.js
+  // Anteriormente era
+  // const destinations = useSelector(store => store.citiesReducers.cities)
 
   useEffect(() => {
-      axios("http://localhost:3000/api/cities/getAllCities") // si se omite el método, por defecto es GET
+    /* Así era la carga de las ciudades:
+    server("http://localhost:3000/api/cities/getAllCities") // si se omite el método, por defecto es GET
         .then((response) => {
           setDestinations(response.data.response);
           console.log("Starting app...");
         })
         .catch(function (error) {
           alert(error); //this alert shows up correctly
-        });
-  }, [])
+        }); 
+    */
+
+    console.log("Starting app...");
+
+    async function fetchData() {
+      await dispatch(getAllCities());
+      console.log("Data Loaded");
+      // console.log(data);
+
+      // Con Redux ya no es necesario
+      // setDestinations(data.payload);
+    }
+    fetchData();
+  }, [dispatch]);
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <MainLayout destinations={destinations} />,
+      element: <MainLayout /* destinations={destinations} */ />,
       children: [
         {
           path: "/",
@@ -70,15 +99,31 @@ const App = () => {
     },
   ]);
 
-  return (
-    <>
-      {destinations && 
-        <RouterProvider router={router} />
-        
-      }{" "}
-      {/* Espera la carga de datos */}
-    </>
-  );
+  if (loadingMainInterfase) {
+    return (
+      <>
+        <div className="flex flex-col gap-10 w-[100vw] h-[100vh] justify-center items-center">
+          <img
+            src="/src/assets/logos/mytinerary-logo.svg"
+            alt="MYTINERARY"
+            className="w-[360px] h-[120px]"
+          ></img>
+          <h1 className="text-white text-3xl">
+            Loading interfase. Please, wait...
+          </h1>
+        </div>
+      </>
+    );
+  } else {
+    if (cities.length > 0) {
+      console.log("Rendering Router");
+      return (
+        <>
+          {<RouterProvider router={router} />} {/* Espera la carga de datos */}
+        </>
+      );
+    }
+  }
 };
 
 export default App;

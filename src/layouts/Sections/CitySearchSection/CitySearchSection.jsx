@@ -3,14 +3,21 @@ import React, { useEffect, useRef, useState } from "react";
 import CityCard from "../../../components/CityCard/CityCard";
 import { getAllCities } from "../../../services/citiesQueries";
 import { getCitiesByCityName } from "../../../services/citiesQueries";
+import { useSelector } from "react-redux";
 
-const CitySearchSection = ({ cities }) => {
+const CitySearchSection = (/* { cities } */) => {
+  
+  console.log("Starting City Search Section")
+
   const noCityFound = {
     match: false,
     city: "Lost?",
     imgPath: "/images/bgHttpStatusCodes/",
     imgUrl: "Desert-Island-Middle-Of-Nowhere-1920.webp",
   };
+
+  const cities = useSelector( store => store.citiesReducers.cities )
+  
   // Select filter logic
   const [options, setOptions] = useState(cities);
   const [selectedOption, setSelectedOption] = useState("-1");
@@ -45,6 +52,7 @@ const CitySearchSection = ({ cities }) => {
     */
   }
 
+  // 
   useEffect(() => {
     if(inputValue) {
       let queryParams = "?city=" + inputValue
@@ -62,7 +70,7 @@ const CitySearchSection = ({ cities }) => {
     <div className="SearchSection flex w-full justify-center py-4 flex-col">
       <div className="flex justify-center self-center bg-black bg-opacity-40 w-[96vw] rounded-3xl p-4 shadow-lg shadow-white/50">
         <div className="flex flex-col w-80 grow justify-center">
-          <h2 className="welcome-section text-5xl drop-shadow my-5 text-center">
+          <h2 className="city-search-section text-5xl drop-shadow my-5 text-center">
             Search your next dream!
           </h2>
           <p className="text-white mt-5 text-center ">

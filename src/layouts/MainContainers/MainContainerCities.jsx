@@ -2,10 +2,10 @@
 import React from "react";
 import CitySearchSection from "../Sections/CitySearchSection/CitySearchSection";
 
-const MainContainer = ({ cities }) => {
+const MainContainer = (/* { cities } */) => {
   return (
     <div className="mainContainer w-full flex flex-col justify-center self-center">
-      <CitySearchSection cities={ cities } />
+      <CitySearchSection /* cities={ cities } */ />
     </div>
   );
 };

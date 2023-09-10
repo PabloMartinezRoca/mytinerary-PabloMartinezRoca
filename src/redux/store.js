@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-import itinerariesReducer from './reducers/itinerariesReducer'
+import citiesReducers from './reducers/citiesReducers.js'
+import itinerariesReducers from './reducers/itinerariesReducers.js'
+import carrouselReducers from './reducers/carrouselReducers.js'
 
-const store = configureStore({
+export const store = configureStore({
     reducer: {
-        
-        itinerariesReducer: itinerariesReducer
+        citiesReducers: citiesReducers,
+        itinerariesReducers: itinerariesReducers,
+        popularMytinerariesCarrouselReducers: carrouselReducers
     }
 })
-
-export default store

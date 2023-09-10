@@ -86,7 +86,7 @@ const navBarLinks = [
   },
 ];
 
-const MainLayout = ({ destinations }) => {
+const MainLayout = ( /* { destinations } */ ) => {
   
   console.log("Starting Main Layout")
   
@@ -97,13 +97,15 @@ const MainLayout = ({ destinations }) => {
     location.pathname == '/' && navigate('/index')
   }, [])
 
+  /* Antes de Redux
   const bgSection =
   destinations[Math.floor(Math.random() * destinations.length)].imgUrl
+  */
 
   return (
     <div className="mainLayout flex flex-col">
       <Header navBarLinks={navBarLinks} />
-      <Outlet context={[bgSection, destinations]} />
+      <Outlet /> {/* context={[bgSection, destinations]} */}
       <Footer navBarLinks={navBarLinks} />
     </div>
   );

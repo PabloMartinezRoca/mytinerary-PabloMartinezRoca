@@ -1,10 +1,12 @@
-import { useOutletContext } from "react-router-dom";
+// import { useOutletContext } from "react-router-dom";
 import BgFullHeight from "../components/Background/BgFullHeight";
 import MainContainer from "../layouts/MainContainers/MainContainerCities";
-import { useEffect, useState } from "react";
-import { getAllCities } from "../services/citiesQueries";
+// import { useEffect, useState } from "react";
+// import { getAllCities } from "../services/citiesQueries";
 
 export default function Cities() {
+  
+  /* Antes de Redux
   const [cities, setCities] = useState(null);
 
   useEffect(() => {
@@ -14,13 +16,14 @@ export default function Cities() {
   }, []);
 
   const [bgSection] = useOutletContext();
+  */
 
   return (
     <>
-      {cities && (
+      {true /* cities */ && ( // True con Redux
         <>
-          <BgFullHeight cityDestination={bgSection} />
-          <MainContainer cities={cities} />
+          <BgFullHeight /* cityDestination={bgSection} */ />
+          <MainContainer /* cities={cities} */ />
         </>
       )}{" "}
       {/* Espera la carga de datos */}

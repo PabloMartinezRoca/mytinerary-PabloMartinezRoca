@@ -7,10 +7,10 @@ const HttpStatus404Component = () => {
     <div className="WelcomeSection flex w-full justify-center py-24">
       <div className="flex justify-center self-center bg-black bg-opacity-40 h-[60vh] w-[75vw] max-w-[800px] rounded-3xl p-10 shadow-lg shadow-white/50">
         <div className="flex flex-col w-80 grow justify-center relative">
-          <h2 className="welcome-section text-8xl drop-shadow mb-10 text-center">
+          <h2 className="http-status-section text-8xl drop-shadow mb-10 text-center">
             Lost ?
           </h2>
-          <h3 className="welcome-section text-lg drop-shadow text-center">
+          <h3 className="http-status-section text-lg drop-shadow text-center">
             We apologize, but an error appears to have landed you on a desert
             page.
           </h3>

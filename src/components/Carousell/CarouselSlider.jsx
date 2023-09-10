@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react'
+import { PropTypes } from 'prop-types'
 import { Link as Anchor } from 'react-router-dom'
 
 const CarouselSlider = ({ cityInfo }) => {
@@ -22,6 +22,10 @@ const CarouselSlider = ({ cityInfo }) => {
       </Anchor>
     </div>
   )
+}
+
+CarouselSlider.propTypes = {
+  cityInfo : PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default CarouselSlider

@@ -2,22 +2,18 @@
 import React from "react";
 import Itinerary from "../../../components/Itinerary/Itinerary";
 import { Link as Anchor } from "react-router-dom";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { PropTypes } from "prop-types";
 
-const WelcomeSection = ({ cityInfo }) => {
-
-  // Redux
-  const reduxEngine = useSelector((store) => store)
-  console.log(reduxEngine)
+const CityInfoSection = ({ cityInfo }) => {
   
   return (
-    <div className="WelcomeSection flex w-full justify-center py-24">
+    <div className="CityInfoSection flex w-full justify-center py-24">
       <div className="flex justify-center self-center bg-black bg-opacity-40 w-[75vw] max-w-[800px] rounded-3xl p-10 shadow-lg shadow-white/50">
         <div className="flex flex-col w-80 grow justify-center">
-          <h2 className="welcome-section text-7xl drop-shadow mb-4 text-center">
+          <h2 className="city-info-section text-7xl drop-shadow mb-4 text-center">
             {cityInfo.city}
           </h2>
-          <h3 className="welcome-section text-lg drop-shadow text-center">
+          <h3 className="city-info-section text-lg drop-shadow text-center">
             designed by insiders
             <span className="line-break">who know and love their cities!</span>
           </h3>
@@ -57,4 +53,8 @@ const WelcomeSection = ({ cityInfo }) => {
   );
 };
 
-export default WelcomeSection;
+CityInfoSection.propTypes = {
+  cityInfo: PropTypes.object.isRequired,
+};
+
+export default CityInfoSection;

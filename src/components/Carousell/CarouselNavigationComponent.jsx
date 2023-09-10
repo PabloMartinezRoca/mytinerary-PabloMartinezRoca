@@ -1,10 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import { PropTypes } from "prop-types";
+import { useDispatch } from "react-redux";
+import { showPage } from "../../redux/actions/carrouselActions";
 
-const CarouselNavigationComponent = ({ activo, fn, index }) => {
-  if (activo) {
+const CarouselNavigationComponent = ({ page, activePage /*, fn, index */ }) => {
+  
+  const dispatch = useDispatch()
+  
+  if ( activePage ) {
     return (
-      <div onClick={() => fn(index)}>
+      <div onClick={ () => dispatch(showPage(page)) }> {/* fn(index) */} 
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -21,7 +27,7 @@ const CarouselNavigationComponent = ({ activo, fn, index }) => {
     );
   } else {
     return (
-      <div onClick={() => fn(index)}>
+      <div onClick={ () => dispatch(showPage(page)) }> {/* fn(index) */} 
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -40,5 +46,10 @@ const CarouselNavigationComponent = ({ activo, fn, index }) => {
     );
   }
 };
+
+CarouselNavigationComponent.propTypes = {
+  page: PropTypes.number,
+  activePage: PropTypes.bool
+}
 
 export default CarouselNavigationComponent;

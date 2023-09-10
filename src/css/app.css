@@ -1,5 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Indie+Flower&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Indie+Flower&display=swap'); */
+@font-face {
+    font-family: 'Cinzel';
+    /* Specify the font family name */
+    src: url('/fonts/Cinzel-VariableFont_wght.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: 'Indie Flower';
+    /* Specify the font family name */
+    src: url('/fonts/IndieFlower-Regular.ttf') format('truetype')
+}
 
 @tailwind base;
 @tailwind components;
@@ -22,12 +32,21 @@
 }
 
 @layer base {
+
     h2.welcome-section,
+    h2.city-search-section,
+    h2.city-info-section,
+    h2.city-info-activities-section,
+    h2.city-info-comments-section,
+    h2.http-status-section,
     h2.carousel-section {
         font-family: 'Indie Flower', system-ui, sans-serif;
     }
 
-    h2.welcome-section {
+    h2.welcome-section,
+    h2.city-search-section,
+    h2.city-info-section,
+    h2.http-status-section {
         color: aliceblue;
     }
 
@@ -35,13 +54,16 @@
         color: #3c88ae;
     }
 
-    h3.welcome-section {
+    h3.welcome-section,
+    h3.city-search-section,
+    h3.city-info-section,
+    h3.http-status-section {
         color: aliceblue;
         font-family: 'Cinzel', system-ui, sans-serif;
     }
 }
 
-.line-break::before{
+.line-break::before {
     content: "\a";
     white-space: pre;
 }

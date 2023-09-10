@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Weather from "../Weather/Weather";
+import {PropTypes } from 'prop-types'
 
 const Clock = ({ weatherCondition = "sunny" }) => {
   const [time, setTime] = useState(new Date());
   let [isDayTime, setIsDayTime] = useState();
 
-  let intervalID = useState();
+  // let intervalID = useState(); // Es necesario?
 
   useEffect(() => {
     console.log("Este hook se ejecuta al montar el componente");
-    intervalID = setInterval(() => {
+    const intervalID = setInterval(() => {
       setTime(new Date());
     }, 1000); // Se ejecuta cada 1000 milisegundos
 
@@ -97,5 +98,9 @@ const Clock = ({ weatherCondition = "sunny" }) => {
     </div>
   );
 };
+
+Clock.propTypes = {
+  weatherCondition: PropTypes.string,
+}
 
 export default Clock;

@@ -34,7 +34,7 @@ const Itinerary = () => {
   return (
     <div className="text-white mt-2 bg-black bg-opacity-40 min-w-[90%] rounded-3xl p-10 shadow-lg shadow-white/50">
       <div className="flex flex-col justify-center self-center ">
-        <h2 className="welcome-section text-4xl self-center mb-4 px-10 border-b-2 border-[#3c88ae]">
+        <h2 className="itinerary-section text-4xl self-center mb-4 px-10 border-b-2 border-[#3c88ae]">
           Itineray Title
         </h2>
         <HashTagBoard hashTagList={hashTags} />
