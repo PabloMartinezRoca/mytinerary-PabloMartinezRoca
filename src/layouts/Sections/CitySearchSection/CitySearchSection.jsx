@@ -19,7 +19,6 @@ const CitySearchSection = (/* { cities } */) => {
   const cities = useSelector( store => store.citiesReducers.cities )
   
   // Select filter logic
-  const [options, setOptions] = useState(cities);
   const [selectedOption, setSelectedOption] = useState("-1");
 
   const handleSelectChange = (e) => {
@@ -52,8 +51,8 @@ const CitySearchSection = (/* { cities } */) => {
     */
   }
 
-  // 
-  useEffect(() => {
+  // TO CHECKOUT AND PREVENT 2 COMPONENT RENDERS
+   useEffect(() => {
     if(inputValue) {
       let queryParams = "?city=" + inputValue
       getCitiesByCityName(queryParams).then(setFilteredData)
@@ -65,7 +64,7 @@ const CitySearchSection = (/* { cities } */) => {
       getAllCities().then(setFilteredData)
     }
   }, [inputValue])
-
+ 
   return (
     <div className="SearchSection flex w-full justify-center py-4 flex-col">
       <div className="flex justify-center self-center bg-black bg-opacity-40 w-[96vw] rounded-3xl p-4 shadow-lg shadow-white/50">
@@ -79,11 +78,11 @@ const CitySearchSection = (/* { cities } */) => {
               <option key="-1" value="-1">
                 Select a city
               </option>
-              {options.map((option) => (
+              { cities.map((option) => (
                 <option key={option._id} value={option._id}>
                   {option.city}
                 </option>
-              ))}
+              )) }
             </select>
           </p>
           <p className="text-white mt-5 text-center grid grid-cols-10 gap-2">
