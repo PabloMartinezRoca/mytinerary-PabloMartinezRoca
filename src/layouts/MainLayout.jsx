@@ -64,7 +64,14 @@ const navBarLinks = [
     showIn: ["header", "footer"],
   },
   {
-    docUrl: "#",
+    docUrl: "register",
+    linkText: "Register",
+    linkType: "button",
+    icon: "",
+    showIn: ["header"],
+  },
+  {
+    docUrl: "signIn",
     linkText: "Login",
     linkType: "button",
     icon: profileIcon,
@@ -95,7 +102,7 @@ const MainLayout = ( /* { destinations } */ ) => {
 
   useEffect(() => {
     location.pathname == '/' && navigate('/index')
-  }, [])
+  }, [location.pathname, navigate])
 
   /* Antes de Redux
   const bgSection =

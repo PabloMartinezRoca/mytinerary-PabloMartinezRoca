@@ -10,43 +10,57 @@ const initialState = {
 
 const popularMytinerariesCarrouselReducers = createReducer(initialState,
     (builder) => builder
-        .addCase( setCities, ( state, action ) => {
-            // console.log(state)
+        .addCase( setCities, ( store, action ) => {
+            // console.log(store)
             return {
-                ...state,
+                ...store,
                 cities: action.payload
             }
         })
-        .addCase( setTotalPages, ( state, action ) => {
-            // console.log(state)
+        .addCase( setTotalPages, ( store, action ) => {
+            // console.log("num. of pages in carousel:", action.payload) // totalPages desde la acción
             return {
-                ...state,
+                ...store,
                 totalPages: action.payload
             }
         })
-        .addCase( showPage, ( state, action ) => {
-            // console.log("showing Page:", action.payload)
+        .addCase( showPage, ( store, action ) => {
+            // console.log("showing Page:", action.payload) // activePage desde la acción
             return {
-                ...state,
+                ...store,
                 activePage: action.payload
             }
         })
-        .addCase( showNextPageFrom, ( state, action ) => {
-            // console.log("new activePage:", action.payload)
+        .addCase( showNextPageFrom, ( store, action ) => {
+
+            const activePage = action.payload.activePage
+            const totalPages = action.payload.totalPages
+            const newActivePage = activePage < totalPages ? activePage + 1 : 1
+            
+            // console.log("NextPage from", activePage)
+            // console.log("new activePage:", newActivePage, "of", totalPages)
+    
             return {
-                ...state,
-                activePage: action.payload
+                ...store,
+                activePage: newActivePage
             }
         })
-        .addCase( showPrevPageFrom, ( state, action ) => {
-            // console.log("new activePage:", action.payload)
+        .addCase( showPrevPageFrom, ( store, action ) => {
+            
+            const activePage = action.payload.activePage
+            const totalPages = action.payload.totalPages
+            const newActivePage = activePage > 1 ? activePage - 1 : totalPages
+            
+            // console.log("PrevPage from", activePage)
+            // console.log("new activePage:", newActivePage, "of", totalPages)
+
             return {
-                ...state,
-                activePage: action.payload
+                ...store,
+                activePage: newActivePage
             }
         })
-        .addDefaultCase((state) => {
-            return state
+        .addDefaultCase((store) => {
+            return store
         })
         
 )

@@ -2,6 +2,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Index from "./pages/Index";
 import Cities from "./pages/Cities";
 import CityInfo from "./pages/CityInfo";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import MainLayout from "./layouts/MainLayout";
 import HttpStatus404 from "./pages/HttpStatus404";
 import HttpStatus503 from "./pages/HttpStatus503";
@@ -20,7 +22,7 @@ const App = () => {
   const { loadingMainInterfase, cities } = useSelector(
     (store) => store.citiesReducers
   );
-  console.log(cities);
+  // console.log(cities);
   // store está exportado en store.js
   // citiesReducer está referenciado en store.js
   // cities es una propiedad citiesReducer.js
@@ -78,22 +80,34 @@ const App = () => {
           element: <CityInfo />,
         },
         {
+          path: "/register",
+          element: 
+            <SignUp 
+              bgSectionPath="/images/bgGeneral/"
+              bgSection="sign-up-1920.webp"
+            />,
+        },
+        {
+          path: "/signIn",
+          element: <SignIn />,
+        },
+        {
           path: "/serverMaintenance",
-          element: (
+          element:
             <HttpStatus503
               bgSectionPath="/images/bgHttpStatusCodes/"
               bgSection="Departures-Board-DB-offline-1920.webp"
             />
-          ),
+          ,
         },
         {
           path: "*",
-          element: (
+          element: 
             <HttpStatus404
               bgSectionPath="/images/bgHttpStatusCodes/"
               bgSection="Desert-Island-Middle-Of-Nowhere-1920.webp"
             />
-          ),
+          ,
         },
       ],
     },

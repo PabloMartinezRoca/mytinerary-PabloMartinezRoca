@@ -107,7 +107,7 @@ const CitySearchSection = (/* { cities } */) => {
           </p>
         </div>
       </div>
-      <div className="flex flex-wrap gap-4 justify-center self-center w-[96vw] p-10 mt-5 text-white bg-black bg-opacity-40  rounded-3xl shadow-lg shadow-white/50">
+      <div className="flex justify-around flex-wrap gap-4 justify-center self-center w-[96vw] p-10 mt-5 text-white bg-black bg-opacity-40  rounded-3xl shadow-lg shadow-white/50">
         {filteredData.length === 0 ? (
           <div key={-1} className="card p-2 ">
             <CityCard cityInfo={noCityFound} />
