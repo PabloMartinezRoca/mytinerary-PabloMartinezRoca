@@ -2,10 +2,14 @@
 import React, { useState } from "react";
 import NavBar from "../NavBar/NavBar";
 import mytineraryLogo from "../../assets/logos/mytinerary-logo.svg";
+import { PropTypes } from 'prop-types'
 import Clock from "../Clock/Clock";
+import { useSelector } from "react-redux";
 
 const Header = ({ navBarLinks }) => {
+
   const [show, setShow] = useState(true);
+  const { user } = useSelector( store => store.authenticateUserReducers )
 
   return (
     <>
@@ -27,6 +31,14 @@ const Header = ({ navBarLinks }) => {
         {/* renderizado condicional (en este caso, con ternario simple) */}
         <NavBar section="header" navBarLinks={navBarLinks} />{" "}
         {/* De esta manera se pasa la colección de datos al componente hijo */}
+
+        {
+          user?.photo &&
+            <img src={user.photo} alt="user photo profile" className="w-16 h-16 rounded-md" />
+
+        }
+
+
       </div>
     </header>
     <div className="h-[60px]"></div>
@@ -34,4 +46,7 @@ const Header = ({ navBarLinks }) => {
   );
 };
 
+Header.propTypes = {
+  navBarLinks: PropTypes.array
+}
 export default Header;

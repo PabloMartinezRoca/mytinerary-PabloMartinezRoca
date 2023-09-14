@@ -41,21 +41,21 @@ const CarouselHorizontal = ({ destinations }) => {
 
   // Automatic rotation of slider
   useEffect(() => {
-    console.log("Se crea el intervalo");
+    // console.log("Se crea el intervalo");
 
     let sliderIntervalID = setInterval(() => {
       showNextsetOfCities()
     }, 4000);
 
     return () => {
-      console.log("Se destruye el intervalo");
+      // console.log("Se destruye el intervalo");
 
       clearInterval(sliderIntervalID);
     };
   }, [showNextsetOfCities]);
 
   function showNextsetOfCities () {
-    console.log(activePage, totalPages)
+    // console.log(activePage, totalPages)
     dispatch(showNextPageFrom(activePage, totalPages));
   }
 

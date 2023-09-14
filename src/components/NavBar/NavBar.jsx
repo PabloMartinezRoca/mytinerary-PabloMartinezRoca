@@ -1,10 +1,17 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Fragment } from "react";
+import { PropTypes } from 'prop-types';
 import NavBarLink from "./NavBarLink";
 
 const NavBar = ({ navBarLinks, section }) => {
 
-  const links = navBarLinks.filter(item => item.showIn.includes(section));
+  const url = window.location.pathname
+  
+  const links = navBarLinks.filter(item => {
+    const isIncluded = item.showIn.includes(section);
+    const isExcluded = item.hideIfActive && item.docUrl === url.replace(/\//g, '');
+    return isIncluded && !isExcluded;
+  });
   
   return (
     <nav className="flex align-middle h-100">
@@ -24,6 +31,11 @@ const NavBar = ({ navBarLinks, section }) => {
     </nav>
   );
 };
+
+NavBar.propTypes = {
+  navBarLinks: PropTypes.array.isRequired,
+  section: PropTypes.string
+}
 
 export default NavBar;
 

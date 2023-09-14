@@ -52,6 +52,7 @@ const navBarLinks = [
   {
     docUrl: "index",
     linkText: "Home",
+    hideIfActive: false, 
     linkType: "underline",
     icon: "",
     showIn: ["header", "footer"],
@@ -59,6 +60,7 @@ const navBarLinks = [
   {
     docUrl: "cities",
     linkText: "Cities",
+    hideIfActive: false, 
     linkType: "underline",
     icon: "",
     showIn: ["header", "footer"],
@@ -66,6 +68,7 @@ const navBarLinks = [
   {
     docUrl: "register",
     linkText: "Register",
+    hideIfActive: true, 
     linkType: "button",
     icon: "",
     showIn: ["header"],
@@ -73,6 +76,7 @@ const navBarLinks = [
   {
     docUrl: "signIn",
     linkText: "Login",
+    hideIfActive: true, 
     linkType: "button",
     icon: profileIcon,
     showIn: ["header"],
@@ -80,6 +84,7 @@ const navBarLinks = [
   {
     docUrl: "#",
     linkText: "Find Us",
+    hideIfActive: false, 
     linkType: "button",
     icon: mapIcon,
     showIn: ["footer"],
@@ -87,6 +92,7 @@ const navBarLinks = [
   {
     docUrl: "#",
     linkText: "Share on Twitter",
+    hideIfActive: false, 
     linkType: "button",
     icon: twitterIcon,
     showIn: ["footer"],

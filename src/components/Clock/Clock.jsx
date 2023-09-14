@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Weather from "../Weather/Weather";
-import {PropTypes } from 'prop-types'
+import { PropTypes } from 'prop-types'
 
 const Clock = ({ weatherCondition = "sunny" }) => {
   const [time, setTime] = useState(new Date());
