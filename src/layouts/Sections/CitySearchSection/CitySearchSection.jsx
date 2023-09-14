@@ -4,6 +4,7 @@ import CityCard from "../../../components/CityCard/CityCard";
 import { getAllCities } from "../../../services/citiesQueries";
 import { getCitiesByCityName } from "../../../services/citiesQueries";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 const CitySearchSection = (/* { cities } */) => {
   
@@ -21,8 +22,14 @@ const CitySearchSection = (/* { cities } */) => {
   // Select filter logic
   const [selectedOption, setSelectedOption] = useState("-1");
 
+  const navigate = useNavigate();
+
   const handleSelectChange = (e) => {
-    setSelectedOption(e.target.value);
+    const selectedID = (e.target.value);
+    setSelectedOption(selectedID)
+
+    navigate(`/travelTo/${selectedID}`);
+
   };
 
   // Input filter logic
