@@ -2,10 +2,11 @@ import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { PropTypes } from "prop-types";
 
-const GoogleLoginButton = ({ fn, action } ) => {
+const GoogleLoginButton = ({ fn, action, buttonText } ) => {
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      console.log(tokenResponse);
+      
+      // console.log(tokenResponse);
 
       const { data: userInfo } = await axios.get(
         "https://www.googleapis.com/oauth2/v3/userinfo",
@@ -35,7 +36,7 @@ const GoogleLoginButton = ({ fn, action } ) => {
       :
       fn({})
       
-      console.log(userInfo);
+      // console.log(userInfo);
 
     },
   });
@@ -70,7 +71,7 @@ const GoogleLoginButton = ({ fn, action } ) => {
             fill="#EA4335"
           ></path>
         </svg>
-        <p>Login with Google</p>
+        <p>{buttonText}</p>
       </button>
     </div>
   );
@@ -78,7 +79,8 @@ const GoogleLoginButton = ({ fn, action } ) => {
 
 GoogleLoginButton.propTypes = {
   fn: PropTypes.func.isRequired,
-  action: PropTypes.string.isRequired
+  action: PropTypes.string.isRequired,
+  buttonText: PropTypes.string.isRequired
 };
 
 export default GoogleLoginButton;

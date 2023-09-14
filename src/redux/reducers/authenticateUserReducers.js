@@ -11,7 +11,7 @@ const authenticateUserReducers = createReducer( initialState,
     (builder) => builder
     .addCase(authenticate.fulfilled, ( state, action ) => {
 
-        console.log(action.payload)
+        console.log("Authentication Type:", action.payload)
         
         const newState = { 
             ...state, 
@@ -40,6 +40,9 @@ const authenticateUserReducers = createReducer( initialState,
             ...state, 
             ...action.payload 
         }
+
+        // console.log(newState)
+        
         return newState
     })
 )

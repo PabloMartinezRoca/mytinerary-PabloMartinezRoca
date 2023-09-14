@@ -106,7 +106,7 @@ const navBarLinks = [
     showOnlyOnUserStatus: "online",
   },
   {
-    docUrl: "logOut",
+    docUrl: "/logOut",
     linkText: "log Out",
     hideIfActive: false,
     linkType: "button",

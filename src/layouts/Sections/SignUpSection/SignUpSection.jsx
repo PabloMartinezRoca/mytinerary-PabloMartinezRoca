@@ -7,10 +7,11 @@ import { getAllCountries } from "../../../services/countriesQueries";
 import { Link as Anchor } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../../../redux/actions/authenticateUserActions";
+import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignUpSection = () => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // Get Country list
   const [countries, setCountries] = useState(null);
@@ -25,11 +26,18 @@ const SignUpSection = () => {
     lastName: "",
     email: "",
     pass: "",
-    passConfirmation: "",
     dateOfBirth: "",
+    photo: "",
     country: "",
     terms: false,
   });
+
+  // Password show/hide functionallity
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChangeData = (e) => {
     setData((prevState) => {
@@ -40,20 +48,41 @@ const SignUpSection = () => {
     });
   };
 
+  // function to handle Google submit
   const handleSubmitData = async (e) => {
     e.preventDefault();
 
     const userData = { ...data };
-    if (userData.terms && userData.pass === userData.passConfirmation) {
+
+    if (!userData.terms) {
+      toast.error("You must agree the Terms of Use and Privacy Policy!", {
+        autoClose: 4000,
+      });
+    } else {
       delete userData.terms;
-      delete userData.passConfirmation;
 
-      console.log("Form submitted!");
+      console.log("Form register submitted!");
 
-      const response = await server.post("/auth/register", userData);
+      try {
+        const response = await server.post("/auth/register", userData);
 
-      console.log(response);
-      dispatch(register(response.data))
+        dispatch(register(response.data));
+      } catch (err) {
+        console.log("Register Error:", err);
+        if (err.response.data.dataValidator) {
+          toast.error(err.response.data.error["message"], {
+            autoClose: 4000,
+          });
+        } else if (err.response.data.message === "EMAIL_ALREADY_EXISTS") {
+          toast.error(
+            "The email entered is associated with an existing account! Try to Log In!",
+            {
+              autoClose: 4000,
+            }
+          );
+          return;
+        }
+      }
     }
   };
 
@@ -63,12 +92,22 @@ const SignUpSection = () => {
     if (userData.terms) {
       delete userData.terms;
 
-      console.log("Google login")
-      
-      const response = await server.post("/auth/register", userData);
+      console.log("Google Register submitted!");
 
-      console.log(response);
-      dispatch(register(response.data))
+      console.log("USER DATA:", userData);
+      try {
+        const response = await server.post("/auth/register", userData);
+
+        // console.log(response);
+        dispatch(register(response.data));
+      } catch (err) {
+        if (err.response.data.message === "EMAIL_ALREADY_EXISTS") {
+          toast.error("Your Google account already exists! Try to Log In!", {
+            autoClose: 4000,
+          });
+          return;
+        }
+      }
     }
   };
 
@@ -77,6 +116,13 @@ const SignUpSection = () => {
       <div className="SignUpSection flex w-full justify-center py-24">
         <div className="flex justify-center self-center bg-black bg-opacity-40 w-[75vw] max-w-[800px] rounded-3xl p-10 shadow-lg shadow-white/50">
           <div className="flex flex-col w-80 grow justify-center items-center pt-6 sm:justify-center sm:pt-0">
+            <h2 className="welcome-section text-5xl drop-shadow mb-4 text-center">
+              Welcome traveller!
+            </h2>
+            <h3 className="welcome-section text-lg drop-shadow text-center">
+              To unlock our full content,
+              <span className="line-break">you must register or log in!</span>
+            </h3>
             <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white bg-opacity-80 shadow-md sm:max-w-lg sm:rounded-lg">
               <form role="form" onSubmit={handleSubmitData}>
                 <div>
@@ -106,34 +152,23 @@ const SignUpSection = () => {
                     Password
                   </label>
                   <div className="flex flex-col items-start">
-                    <input
-                      onChange={handleChangeData}
-                      value={data.pass}
-                      type="password"
-                      name="pass"
-                      id="pass"
-                      autoComplete="off"
-                      className="p-1 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    />
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <label
-                    htmlFor="passConfirmation"
-                    className="block text-sm font-medium text-gray-700 undefined"
-                  >
-                    Confirm Password
-                  </label>
-                  <div className="flex flex-col items-start">
-                    <input
-                      onChange={handleChangeData}
-                      value={data.passConfirmation}
-                      type="password"
-                      name="passConfirmation"
-                      id="passConfirmation"
-                      autoComplete="off"
-                      className="p-1 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    />
+                    <div className="relative w-full">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        className="p-1 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        value={data.pass}
+                        onChange={handleChangeData}
+                        name="pass"
+                        id="pass"
+                        autoComplete="off"
+                      />
+                      <span
+                        className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                        onClick={togglePasswordVisibility}
+                      >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="mt-4">
@@ -195,6 +230,25 @@ const SignUpSection = () => {
                 </div>
                 <div className="mt-4">
                   <label
+                    htmlFor="photo"
+                    className="block text-sm font-medium text-gray-700 undefined"
+                  >
+                    URL Profile Photo
+                  </label>
+                  <div className="flex flex-col items-start">
+                    <input
+                      onChange={handleChangeData}
+                      value={data.photo}
+                      type="text"
+                      name="photo"
+                      id="photo"
+                      autoComplete="off"
+                      className="p-1 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    />
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <label
                     htmlFor="country"
                     className="block text-sm font-medium text-gray-700 undefined"
                   >
@@ -209,8 +263,8 @@ const SignUpSection = () => {
                       onChange={handleChangeData}
                       className="p-1 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     >
-                      <option key="-1" value="-1">
-                        Select a country
+                      <option key="-1" value="">
+                        Select your country
                       </option>
                       {countries.map((option) => (
                         <option key={option._id} value={option._id}>
@@ -281,7 +335,11 @@ const SignUpSection = () => {
 
               {/* Google Login -- Provider is in main.jsx to be present in all the app */}
 
-              <GoogleLoginButton fn={handleSubmitGoogle} action="signUp" />
+              <GoogleLoginButton
+                fn={handleSubmitGoogle}
+                action={"signUp"}
+                buttonText={"Register with Google"}
+              />
 
               {/* <GoogleLogin
                 shape="rectangular"

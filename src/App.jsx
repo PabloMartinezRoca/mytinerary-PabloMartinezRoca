@@ -12,10 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCities } from "./redux/actions/citiesActions";
 import { authenticate } from "./redux/actions/authenticateUserActions";
 import LogOut from "./pages/LogOut";
+import ProtectedRoute from "./layouts/ProtectedRoute";
 // import destinations from "./data/destinations.json" // Load static data content in JSON format
 
 const App = () => {
-
   // Línea comentada porque se reemplaza por useSelector() de Redux
   //const [destinations, setDestinations] = useState(null);
 
@@ -31,7 +31,7 @@ const App = () => {
   // cities es una propiedad citiesReducer.js
   // Anteriormente era
   // const destinations = useSelector(store => store.citiesReducers.cities)
-    
+
   useEffect(() => {
     /* Así era la carga de las ciudades:
     server("http://localhost:3000/api/cities/getAllCities") // si se omite el método, por defecto es GET
@@ -56,9 +56,9 @@ const App = () => {
     }
     fetchData();
 
-    // Recarga el token almacenado en local storage si hay usuario logueado
-    dispatch(authenticate())
+    // Recarga el token almacenado en local storage si hay usuario logueado, excepto que se esté deslogueando
     
+    location.pathname !== '/logOut' && dispatch(authenticate(location.pathname));
   }, [dispatch]);
 
   const router = createBrowserRouter([
@@ -75,50 +75,70 @@ const App = () => {
           element: <Index />,
         },
         {
+          path: "/home",
+          element: <Index />,
+        },
+        {
           path: "/cities",
-          element: <Cities />,
+          element: (
+            <ProtectedRoute statusToContinue={"online"} redirectRoute={"/signIn"}>
+              <Cities />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/cities/:city",
-          element: <Cities />,
+          element: (
+            <ProtectedRoute statusToContinue={"online"} redirectRoute={"/signIn"}>
+              <Cities />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/travelTo/:id",
-          element: <CityInfo />,
+          element: (
+            <ProtectedRoute statusToContinue={"online"} redirectRoute={"/signIn"}>
+              <CityInfo />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/register",
           element: (
-            <SignUp
-              bgSectionPath="/images/bgGeneral/"
-              bgSection="sign-up-1920.webp"
-            />
+            <ProtectedRoute statusToContinue={"offline"} redirectRoute={"/index"}>
+              <SignUp
+                bgSectionPath={"/images/bgGeneral/"}
+                bgSection={"sign-up-1920.webp"}
+              />
+            </ProtectedRoute>
           ),
         },
         {
           path: "/signIn",
           element: (
-            <SignIn
-              bgSectionPath="/images/bgGeneral/"
-              bgSection="sign-in-1920.webp"
-            />
+            <ProtectedRoute statusToContinue={"offline"} redirectRoute={"/index"}>
+              <SignIn
+                bgSectionPath={"/images/bgGeneral/"}
+                bgSection={"sign-in-1920.webp"}
+              />
+            </ProtectedRoute>
           ),
         },
         {
           path: "/logOut",
           element: (
-            <LogOut
-              bgSectionPath="/images/bgGeneral/"
-              bgSection="log-out-1920.webp"
-            />
+              <LogOut
+                bgSectionPath={"/images/bgGeneral/"}
+                bgSection={"log-out-1920.webp"}
+              />
           ),
         },
         {
           path: "/serverMaintenance",
           element: (
             <HttpStatus503
-              bgSectionPath="/images/bgHttpStatusCodes/"
-              bgSection="Departures-Board-DB-offline-1920.webp"
+              bgSectionPath={"/images/bgHttpStatusCodes/"}
+              bgSection={"Departures-Board-DB-offline-1920.webp"}
             />
           ),
         },
@@ -126,8 +146,8 @@ const App = () => {
           path: "*",
           element: (
             <HttpStatus404
-              bgSectionPath="/images/bgHttpStatusCodes/"
-              bgSection="Desert-Island-Middle-Of-Nowhere-1920.webp"
+              bgSectionPath={"/images/bgHttpStatusCodes/"}
+              bgSection={"Desert-Island-Middle-Of-Nowhere-1920.webp"}
             />
           ),
         },
