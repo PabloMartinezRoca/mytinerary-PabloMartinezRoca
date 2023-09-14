@@ -1,13 +1,28 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { Link as Anchor, NavLink } from "react-router-dom";
+import { PropTypes } from "prop-types";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 const NavBarLink = ({ props }) => {
   const { docUrl, linkText, linkType, icon } = props;
+  const { user } = useSelector((store) => store.authenticateUserReducers);
 
-  if (linkType == "button") {
+  if (linkType == "profileIcon") {
+    return (
+      user?.photo && (
+        <li className="self-center">
+          <img
+            src={user.photo}
+            alt="user photo profile"
+            className="w-12 h-12 rounded-md border-gray-400 border shadow"
+          />
+        </li>
+      )
+    );
+  } else if (linkType == "button") {
     let btn = (
-      <li>
+      <li className="self-center">
         <a
           href={docUrl}
           className={
@@ -23,26 +38,32 @@ const NavBarLink = ({ props }) => {
     return btn;
   } else {
     return (
-      <li>
+      <li className="self-center">
         {/* <Anchor to={docUrl} className={'font-display max-w-sm font-bold leading-tight'} ><span className={'link link-underline  text-[#3c88ae]'}>{linkText}</span></Anchor> */}
 
         <NavLink
           to={"/" + docUrl}
           className={({ isActive, isPending }) =>
             isPending
-            ? "text-[#3c88ae] font-display max-w-sm font-bold leading-tight"
+              ? "text-[#3c88ae] font-display max-w-sm font-bold leading-tight"
               : isActive
               ? "font-display max-w-sm font-bold leading-tight text-[#b43abe]"
-                : "text-[#3c88ae] font-display max-w-sm font-bold leading-tight hover:text-[#6cc4d8] transition-all duration-300"
+              : "text-[#3c88ae] font-display max-w-sm font-bold leading-tight hover:text-[#6cc4d8] transition-all duration-300"
           }
         >
-          <span className={" link-underline"}>
-            {linkText}
-          </span>
+          <span className={" link-underline"}>{linkText}</span>
         </NavLink>
       </li>
     );
   }
+};
+
+NavBarLink.propTypes = {
+  props: PropTypes.object,
+  docUrl: PropTypes.string,
+  linkText: PropTypes.string,
+  linkType: PropTypes.string,
+  icon: PropTypes.string,
 };
 
 export default NavBarLink;

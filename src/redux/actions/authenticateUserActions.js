@@ -53,13 +53,10 @@ const login = createAction('login', (credentials) => {
 })
 
 const logout = createAction('logout', () => {
-    const reducerData = {
-        user: '',
-        token: '',
-        status: 'offline'
-    }
+    ls.rm('token')
+    console.log("Removing token... logging out...")
     return {
-        payload: reducerData
+        payload: {}
     }
 })
 

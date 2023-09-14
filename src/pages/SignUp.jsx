@@ -4,7 +4,7 @@ import MainContainer from "../layouts/MainContainers/MainContainerSignUp";
 
 // import { useOutletContext } from "react-router-dom";
 
-export default function Index({ bgSectionPath, bgSection }) {
+export default function SignUp ({ bgSectionPath, bgSection }) {
 
   /* Antes de redux
   const [bgSection, destinations] = useOutletContext();
@@ -18,7 +18,7 @@ export default function Index({ bgSectionPath, bgSection }) {
   );
 }
 
-Index.propTypes = {
+SignUp.propTypes = {
     bgSectionPath: PropTypes.string, 
     bgSection: PropTypes.string
   }

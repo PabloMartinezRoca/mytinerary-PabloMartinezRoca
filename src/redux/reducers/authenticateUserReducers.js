@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { authenticate, login, register } from "../actions/authenticateUserActions";
+import { authenticate, login, logout, register } from "../actions/authenticateUserActions";
 
 const initialState = {
     user: {},
@@ -29,6 +29,10 @@ const authenticateUserReducers = createReducer( initialState,
             ...action.payload 
         }
         return newState
+    })
+    .addCase(logout, () => {
+
+        return initialState
     })
     .addCase(register, ( state, action ) => {
 

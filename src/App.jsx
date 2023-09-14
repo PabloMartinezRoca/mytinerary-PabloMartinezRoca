@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCities } from "./redux/actions/citiesActions";
 import { authenticate } from "./redux/actions/authenticateUserActions";
+import LogOut from "./pages/LogOut";
 // import destinations from "./data/destinations.json" // Load static data content in JSON format
 
 const App = () => {
@@ -100,6 +101,15 @@ const App = () => {
             <SignIn
               bgSectionPath="/images/bgGeneral/"
               bgSection="sign-in-1920.webp"
+            />
+          ),
+        },
+        {
+          path: "/logOut",
+          element: (
+            <LogOut
+              bgSectionPath="/images/bgGeneral/"
+              bgSection="log-out-1920.webp"
             />
           ),
         },

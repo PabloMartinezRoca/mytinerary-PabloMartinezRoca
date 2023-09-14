@@ -1,14 +1,19 @@
 import BgFullHeight from "../components/Background/BgFullHeight";
 import PropTypes from 'prop-types'
-import MainContainer from "../layouts/MainContainers/MainContainerSignIn";
+import MainContainer from "../layouts/MainContainers/MainContainerLogOut";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { logout } from "../redux/actions/authenticateUserActions";
 
 // import { useOutletContext } from "react-router-dom";
 
-export default function SignIn ({ bgSectionPath, bgSection }) {
+export default function LogOut ({ bgSectionPath, bgSection }) {
 
-  /* Antes de redux
-  const [bgSection, destinations] = useOutletContext();
-  */
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(logout())
+  }, [dispatch])
 
   return (
     <>
@@ -18,7 +23,7 @@ export default function SignIn ({ bgSectionPath, bgSection }) {
   );
 }
 
-SignIn.propTypes = {
+LogOut.propTypes = {
     bgSectionPath: PropTypes.string, 
     bgSection: PropTypes.string
   }
