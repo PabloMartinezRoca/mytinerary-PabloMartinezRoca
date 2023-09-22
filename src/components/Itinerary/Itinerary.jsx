@@ -17,7 +17,7 @@ const Itinerary = ({ itinerary }) => {
   const arrowUp =
     "M15 11L12 8M12 8L9 11M12 8V16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z";
 
-  const itineraryImgPath = '/itineraries/traveller/itinerary1/'
+  const itineraryImgPath = '/itineraries/traveller/' + itinerary._id + '/'
 
   let [activitiesAndCommentsText, setActivitiesAndCommentsText] = useState(
     "Go and unveil our activities and comments!"
@@ -70,7 +70,7 @@ const Itinerary = ({ itinerary }) => {
 
         {/* Activities Component */}
         {showActivitiesAndComments && (
-          <Activities activities={itinerary.activities} />
+          <Activities itinerary={itinerary._id} activities={itinerary.activities} />
         )}
 
         {/* Comments Component */}

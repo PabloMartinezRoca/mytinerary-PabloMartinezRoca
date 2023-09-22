@@ -2,8 +2,8 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 
-const Activities = ({ activities = [] }) => {
-  const imgPath = "/itineraries/traveller/itinerary1/activities/";
+const Activities = ({ itinerary, activities = [] }) => {
+  const imgPath = '/itineraries/traveller/' + itinerary + '/activities/';
 
   const sortedActivities =
     activities.length > 0
@@ -47,6 +47,7 @@ const Activities = ({ activities = [] }) => {
 };
 
 Activities.propTypes = {
+  itinerary: PropTypes.string.isRequired,
   activities: PropTypes.array.isRequired,
 };
 export default Activities;
