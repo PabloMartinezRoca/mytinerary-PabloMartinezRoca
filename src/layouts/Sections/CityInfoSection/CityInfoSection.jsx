@@ -3,9 +3,13 @@ import React from "react";
 import Itinerary from "../../../components/Itinerary/Itinerary";
 import { Link as Anchor } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import { useSelector } from "react-redux";
 
 const CityInfoSection = ({ cityInfo }) => {
-  
+  // console.log(cityInfo)
+
+  const itineraries = useSelector((store) => store.citiesReducers.itineraries);
+
   return (
     <div className="CityInfoSection flex w-full justify-center py-24">
       <div className="flex justify-center self-center bg-black bg-opacity-40 w-[75vw] max-w-[800px] rounded-3xl p-10 shadow-lg shadow-white/50">
@@ -23,13 +27,27 @@ const CityInfoSection = ({ cityInfo }) => {
             </span>
           </p>
 
-          <Itinerary />
+          {itineraries.length > 0 ?
+            itineraries.map((itinerary) => (
+              <Itinerary key={itinerary._id} itinerary={itinerary} />
+            )) : (
+              <div
+              key={1}
+              className="relative rounded-2xl m-2 shadow-sm shadow-slate-900 justify-center self-center"
+            >
+              <img
+                className={"rounded"}
+                src={"/images/bgItineraries/bgItinerariesByDefault.webp"}
+                alt={"No itineraries yet!"}
+              />
+            </div>
+            )}
 
           <Anchor
             to="/cities"
             className="flex self-center justify-center flex-col"
           >
-            <button className="text-white bg-[#669966] hover:bg-[#8fbc8f] p-2 mt-20 rounded-lg flex self-center justify-center flex-col">
+            <button className="text-white bg-[#669966] hover:bg-[#8fbc8f] p-2 mt-8 rounded-lg flex self-center justify-center flex-col">
               <span>Go and unveil another fascinating city!</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -3,9 +3,11 @@ import BgFullHeight from "../components/Background/BgFullHeight";
 import MainContainer from "../layouts/MainContainers/MainContainerCityInfo";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCityById } from "../redux/actions/citiesActions";
+import { getCityById, resetCityData } from "../redux/actions/citiesActions";
+import { getItinerariesByCityId } from "../redux/actions/citiesActions";
 
 export default function CityInfo() {
+
   const { id } = useParams("id");
 
   const dispatch = useDispatch();
@@ -18,11 +20,19 @@ export default function CityInfo() {
   useEffect(() => {
     console.log("Loading city info...");
 
-    const data = dispatch(getCityById(id));
+    function fetchData() {
 
-    console.log("Data Loaded");
-    console.log(data.payload);
-  }, [dispatch, id]);
+      if (id !== cityInfo._id) {
+      dispatch(resetCityData());
+      dispatch(getCityById(id));
+      dispatch(getItinerariesByCityId(id));
+
+      console.log("Data Loaded");
+      } 
+    }
+    fetchData();
+
+  }, [dispatch, id, cityInfo._id]);
 
   /* Antes de Redux era una función asíncrona
   function async fetchData() {
@@ -55,7 +65,7 @@ export default function CityInfo() {
         {cityInfo && (
           <>
             <BgFullHeight cityDestination={cityInfo.imgUrl} />
-            <MainContainer cityInfo={cityInfo} />
+            <MainContainer />
           </>
         )}{" "}
         {/* Espera la carga de datos */}

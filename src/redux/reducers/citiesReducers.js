@@ -1,11 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getAllCities, getCityById } from "../actions/citiesActions";
+import { getAllCities, getCityById, getItinerariesByCityId, resetCityData } from "../actions/citiesActions";
 
 // objeto con los estados que serán modificados por las acciones
 // por ejemplo: const initialState = { text: '', checks: [], select: '' }
 const initialState = {
     cities: [],
     cityInfo: {},
+    itineraries: [],
     loadingMainInterfase: false,
     loadingCityInfoData: false
 }
@@ -77,6 +78,40 @@ const citiesReducers = createReducer(initialState,
                 ...state,
                 cityInfo: action.payload,
                 loadingCityInfoData: false
+            }
+            return newState
+        })
+        .addCase(getItinerariesByCityId.fulfilled, (state, action) => {
+            console.log("fulfilled")
+            const newState = {
+                ...state,
+                itineraries: action.payload,
+                loadingItineraries: false
+            }
+            return newState
+        })
+        .addCase(getItinerariesByCityId.pending, (state) => {
+            console.log("pending")
+            const newState = {
+                ...state,
+                loadingItineraries: true
+            }
+            return newState
+        })
+        .addCase(getItinerariesByCityId.rejected, (state, action) => {
+            console.log("rejected")
+            const newState = {
+                ...state,
+                itineraries: action.payload,
+                loadingItineraries: false
+            }
+            return newState
+        })
+        .addCase(resetCityData, (state) => {
+            const newState = {
+                ...state,
+                cityInfo: {},
+                itineraries: []
             }
             return newState
         })

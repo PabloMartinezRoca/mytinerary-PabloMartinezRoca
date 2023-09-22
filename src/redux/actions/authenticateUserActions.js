@@ -31,7 +31,8 @@ const authenticate = createAsyncThunk('authenticate', async (pathname) => {
 
             const msg = pathname === '/logOut' ? ('We hope to see you soon. Bye ' + data.userData.firstName + '!') : ('Welcome back ' + data.userData.firstName + '!')
             toast(msg, {
-                autoClose: 1500,
+                autoClose: 2000,
+                delay: 1500
             });
         } catch (err) {
             console.log(err)

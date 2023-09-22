@@ -1,9 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import server from "../../utils/axios";
 
 // Middlewares
 
-const getAllCities = createAsyncThunk('getAllCities', async (data, thunkApi) => {
+const getAllCities = createAsyncThunk('getAllCities', async (/* data, */ /* thunkApi */) => {
 
     try {
         const allCities = await server('/cities/getAllCities') // si se omite el método, por defecto es GET
@@ -23,7 +23,7 @@ const getAllCities = createAsyncThunk('getAllCities', async (data, thunkApi) => 
     */
 })
 
-const getCityById = createAsyncThunk('getCityById', async (id) => {
+const getCityById = createAsyncThunk('getCityById', async (id/* , thunkApi */) => {
     try {
         const city = await server('/cities/findCityById/' + id)
         return city.data.response
@@ -33,12 +33,28 @@ const getCityById = createAsyncThunk('getCityById', async (id) => {
     }
 })
 
+const getItinerariesByCityId = createAsyncThunk('getItinerariesByCityId', async (id) => {
+    
+    try {
+        const itineraries = await server('/cities/getItinerariesByCityId/' + id)
+
+        return itineraries.data.response
+    } catch (err) {
+        console.log(err)
+        return []
+    }
+})
+
+const resetCityData = createAction('resetCityData')
+
 
 
 // Es posible importar en el reducer que consumirá las acciones, estas acciones por separado
 export {
     getAllCities,
     getCityById,
+    getItinerariesByCityId,
+    resetCityData,
 }
 
 /*
